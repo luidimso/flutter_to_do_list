@@ -5,8 +5,20 @@ class Checklist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
+    return const Scaffold(
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16
+          ),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: "E-mail",
+              hintText: "exemple@email.com",
+            ),
+          ),
+        ),
+      )
     );
   }
 }
