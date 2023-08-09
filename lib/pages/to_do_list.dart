@@ -22,6 +22,8 @@ class Checklist extends StatelessWidget {
                   hintText: "exemple@email.com",
                 ),
                 controller: emailController,
+                onChanged: onChanged,
+                onSubmitted: onSubmitted,
               ),
               ElevatedButton(
                   onPressed: login,
@@ -39,5 +41,13 @@ class Checklist extends StatelessWidget {
     String text = emailController.text;
     print(text);
     emailController.clear();
+  }
+
+  void onChanged(String text) {
+    print(text);
+  }
+
+  void onSubmitted(String text) {
+    print(text);
   }
 }
