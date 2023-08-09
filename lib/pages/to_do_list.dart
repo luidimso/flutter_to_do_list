@@ -7,31 +7,31 @@ class Checklist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          padding: EdgeInsets.all(16),
+          child: Row(
             children: [
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: "E-mail",
-                  hintText: "exemple@email.com",
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Add a task",
+                    hintText: "Study"
+                  ),
                 ),
-                controller: emailController,
-                onChanged: onChanged,
-                onSubmitted: onSubmitted,
+              ),
+              SizedBox(
+                width: 8,
               ),
               ElevatedButton(
-                  onPressed: login,
-                  child: const Text("Login")
+                  onPressed: null,
+                  child: Text("+")
               )
             ],
           ),
-        ),
+        )
       )
     );
   }
@@ -41,13 +41,5 @@ class Checklist extends StatelessWidget {
     String text = emailController.text;
     print(text);
     emailController.clear();
-  }
-
-  void onChanged(String text) {
-    print(text);
-  }
-
-  void onSubmitted(String text) {
-    print(text);
   }
 }
