@@ -7,13 +7,13 @@ class Checklist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -22,12 +22,16 @@ class Checklist extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               ElevatedButton(
-                  onPressed: null,
-                  child: Text("+")
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.all(14)
+                  ),
+                  child: const Icon(Icons.add, size: 30,),
               )
             ],
           ),
