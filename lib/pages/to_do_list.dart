@@ -41,6 +41,12 @@ class Checklist extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
+              ListView(
+                shrinkWrap: true,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               Row(
                 children: [
                   const Expanded(
