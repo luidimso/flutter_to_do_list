@@ -11,27 +11,50 @@ class Checklist extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Add a task",
-                    hintText: "Study"
+              Row(
+                children: [
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Add a task",
+                        hintText: "Study"
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: const EdgeInsets.all(14)
+                      ),
+                      child: const Icon(Icons.add, size: 30,),
+                  )
+                ],
               ),
               const SizedBox(
-                width: 8,
+                height: 16,
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.all(14)
+              Row(
+                children: [
+                  const Expanded(
+                      child: Text("You have 0 tasks to do")
                   ),
-                  child: const Icon(Icons.add, size: 30,),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: const EdgeInsets.all(14)
+                    ),
+                    child: const Text("Clear all"),
+                  )
+                ],
               )
             ],
           ),
