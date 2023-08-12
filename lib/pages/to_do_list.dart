@@ -1,3 +1,4 @@
+import 'package:checklist/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 
 class Checklist extends StatefulWidget {
@@ -63,13 +64,7 @@ class _ChecklistState extends State<Checklist> {
                   shrinkWrap: true,
                   children: [
                     for(String task in tasks)
-                    ListTile(
-                      title: Text(task),
-                      subtitle: const Text("2023-8-11"),
-                      onTap: () {
-                        print(task);
-                      },
-                    )
+                    ToDoListItem()
                   ],
                 ),
               ),
