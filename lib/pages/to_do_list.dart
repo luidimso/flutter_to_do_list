@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Checklist extends StatelessWidget {
+class Checklist extends StatefulWidget {
   Checklist({super.key});
 
-  final TextEditingController emailController = TextEditingController();
+  @override
+  State<Checklist> createState() => _ChecklistState();
+}
+
+class _ChecklistState extends State<Checklist> {
+  final TextEditingController tasksInputController = TextEditingController();
+
+  List<String> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +23,30 @@ class Checklist extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Add a task",
                         hintText: "Study"
                       ),
+                      controller: tasksInputController,
                     ),
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        String text = tasksInputController.text;
+                        setState(() {
+                          String text = tasksInputController.text;
+                          setState(() {
+                            tasks.add(text);
+                            tasksInputController.clear();
+                          });
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         padding: const EdgeInsets.all(14)
@@ -41,17 +58,20 @@ class Checklist extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    title: const Text("Task 1"),
-                    subtitle: const Text("2023-8-11"),
-                    onTap: () {
-                      print("object");
-                    },
-                  )
-                ],
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for(String task in tasks)
+                    ListTile(
+                      title: Text(task),
+                      subtitle: const Text("2023-8-11"),
+                      onTap: () {
+                        print(task);
+                      },
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -78,10 +98,7 @@ class Checklist extends StatelessWidget {
     );
   }
 
-
   void login() {
-    String text = emailController.text;
-    print(text);
-    emailController.clear();
+
   }
 }
