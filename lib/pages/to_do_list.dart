@@ -1,3 +1,4 @@
+import 'package:checklist/models/task.dart';
 import 'package:checklist/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class Checklist extends StatefulWidget {
 class _ChecklistState extends State<Checklist> {
   final TextEditingController tasksInputController = TextEditingController();
 
-  List<String> tasks = [];
+  List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,11 @@ class _ChecklistState extends State<Checklist> {
                           setState(() {
                             String text = tasksInputController.text;
                             setState(() {
-                              tasks.add(text);
+                              Task newTask = Task(
+                                title: text,
+                                dateTime: DateTime.now()
+                              );
+                              tasks.add(newTask);
                               tasksInputController.clear();
                             });
                           });
@@ -64,9 +69,10 @@ class _ChecklistState extends State<Checklist> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      for(String task in tasks)
+                      for(Task task in tasks)
                       ToDoListItem(
-                        title: task,
+                        title: task.title,
+                        dateTime: task.dateTime,
                       )
                     ],
                   ),

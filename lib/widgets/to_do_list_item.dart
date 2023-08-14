@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ToDoListItem extends StatelessWidget {
-  const ToDoListItem({super.key, required this.title});
+  const ToDoListItem({super.key, required this.title, required this.dateTime});
 
   final String title;
+  final DateTime dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class ToDoListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("2023-8-11", style: const TextStyle(
+            Text(DateFormat("dd/MMM/yyyy - HH:mm").format(dateTime), style: const TextStyle(
             fontSize: 12,
         ),),
             Text(title, style: const TextStyle(
