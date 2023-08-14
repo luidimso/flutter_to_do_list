@@ -15,81 +15,85 @@ class _ChecklistState extends State<Checklist> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Add a task",
-                        hintText: "Study"
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Add a task",
+                          hintText: "Study"
+                        ),
+                        controller: tasksInputController,
                       ),
-                      controller: tasksInputController,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        String text = tasksInputController.text;
-                        setState(() {
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
                           String text = tasksInputController.text;
                           setState(() {
-                            tasks.add(text);
-                            tasksInputController.clear();
+                            String text = tasksInputController.text;
+                            setState(() {
+                              tasks.add(text);
+                              tasksInputController.clear();
+                            });
                           });
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.all(14)
-                      ),
-                      child: const Icon(Icons.add, size: 30,),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Flexible(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    for(String task in tasks)
-                    ToDoListItem()
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.all(14)
+                        ),
+                        child: const Icon(Icons.add, size: 30,),
+                    )
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  const Expanded(
-                      child: Text("You have 0 tasks to do")
+                const SizedBox(
+                  height: 16,
+                ),
+                Flexible(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      for(String task in tasks)
+                      ToDoListItem(
+                        title: task,
+                      )
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.all(14)
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("You have ${tasks.length} tasks to do")
                     ),
-                    child: const Text("Clear all"),
-                  )
-                ],
-              )
-            ],
-          ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.all(14)
+                      ),
+                      child: const Text("Clear all"),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
         )
-      )
+      ),
     );
   }
 
