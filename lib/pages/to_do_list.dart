@@ -89,7 +89,7 @@ class _ChecklistState extends State<Checklist> {
                         child: Text("You have ${tasks.length} tasks to do")
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: deleteAllTasks,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           padding: const EdgeInsets.all(14)
@@ -148,5 +148,41 @@ class _ChecklistState extends State<Checklist> {
           )
       );
     }
+  }
+
+
+  void deleteAllTasks() {
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: const Text("Clear all?"),
+      content: const Text("Are you sure that you want to clear all the tasks?"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.lightBlue
+          ),
+          child: const Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            deleteAll();
+          },
+          style: TextButton.styleFrom(
+              foregroundColor: Colors.red
+          ),
+          child: const Text("Clear all"),
+        )
+      ],
+    ));
+  }
+
+
+  void deleteAll() {
+    setState(() {
+      tasks.clear();
+    });
   }
 }
