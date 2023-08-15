@@ -13,6 +13,8 @@ class _ChecklistState extends State<Checklist> {
   final TextEditingController tasksInputController = TextEditingController();
 
   List<Task> tasks = [];
+  Task? deletedTask;
+  int? deletedTaskPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +115,8 @@ class _ChecklistState extends State<Checklist> {
     for(Task task in tasks) {
       if(task.title == title) {
         taskToRemove = task;
+        deletedTask = task;
+        deletedTaskPosition = tasks.indexOf(task);
       }
     }
 
@@ -120,6 +124,29 @@ class _ChecklistState extends State<Checklist> {
       setState(() {
         tasks.remove(taskToRemove);
       });
+
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Task ${taskToRemove.title} was removed successfully",
+            style: const TextStyle(
+              color: Colors.blueGrey
+            ),),
+            backgroundColor: Colors.white,
+            action: SnackBarAction(
+              label: "Undo",
+              onPressed: () {
+                setState(() {
+                  tasks.insert(deletedTaskPosition!, deletedTask!);
+                });
+              },
+              textColor: Colors.lightBlueAccent,
+            ),
+            duration: const Duration(
+              seconds: 5
+            ),
+          )
+      );
     }
   }
 }
