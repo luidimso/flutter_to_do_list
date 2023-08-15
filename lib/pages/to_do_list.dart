@@ -73,6 +73,7 @@ class _ChecklistState extends State<Checklist> {
                       ToDoListItem(
                         title: task.title,
                         dateTime: task.dateTime,
+                        onDelete: onDelete
                       )
                     ],
                   ),
@@ -103,7 +104,22 @@ class _ChecklistState extends State<Checklist> {
     );
   }
 
-  void login() {
+  void onDelete(String title) {
+    Task taskToRemove = Task(
+      title: "",
+      dateTime: DateTime.now()
+    );
 
+    for(Task task in tasks) {
+      if(task.title == title) {
+        taskToRemove = task;
+      }
+    }
+
+    if(taskToRemove != null) {
+      setState(() {
+        tasks.remove(taskToRemove);
+      });
+    }
   }
 }
