@@ -1,4 +1,5 @@
 import 'package:checklist/models/task.dart';
+import 'package:checklist/repositries/task_repository.dart';
 import 'package:checklist/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class Checklist extends StatefulWidget {
 
 class _ChecklistState extends State<Checklist> {
   final TextEditingController tasksInputController = TextEditingController();
+  final TaskRepository taskRepository = TaskRepository();
 
   List<Task> tasks = [];
   Task? deletedTask;
@@ -52,8 +54,9 @@ class _ChecklistState extends State<Checklist> {
                                 dateTime: DateTime.now()
                               );
                               tasks.add(newTask);
-                              tasksInputController.clear();
                             });
+                            tasksInputController.clear();
+                            taskRepository.save(tasks);
                           });
                         },
                         style: ElevatedButton.styleFrom(
