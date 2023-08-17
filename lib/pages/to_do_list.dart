@@ -4,8 +4,6 @@ import 'package:checklist/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 
 class Checklist extends StatefulWidget {
-  Checklist({super.key});
-
   @override
   State<Checklist> createState() => _ChecklistState();
 }
@@ -17,6 +15,12 @@ class _ChecklistState extends State<Checklist> {
   List<Task> tasks = [];
   Task? deletedTask;
   int? deletedTaskPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    update();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +130,7 @@ class _ChecklistState extends State<Checklist> {
     if(taskToRemove != null) {
       setState(() {
         tasks.remove(taskToRemove);
+        taskRepository.save(tasks);
       });
 
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -141,6 +146,7 @@ class _ChecklistState extends State<Checklist> {
               onPressed: () {
                 setState(() {
                   tasks.insert(deletedTaskPosition!, deletedTask!);
+                  taskRepository.save(tasks);
                 });
               },
               textColor: Colors.lightBlueAccent,
@@ -186,6 +192,13 @@ class _ChecklistState extends State<Checklist> {
   void deleteAll() {
     setState(() {
       tasks.clear();
+      taskRepository.save(tasks);
+    });
+  }
+
+  void update() async {
+    setState(() async {
+      tasks = await taskRepository.get();
     });
   }
 }

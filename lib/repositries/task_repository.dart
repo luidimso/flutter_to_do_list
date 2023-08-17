@@ -9,7 +9,8 @@ const key = "task_list";
 class TaskRepository {
   late SharedPreferences sharedPreferences;
 
-  void save(List<Task> tasks) {
+  void save(List<Task> tasks) async {
+    sharedPreferences = await SharedPreferences.getInstance();
     final String jsonString = json.encode(tasks);
     sharedPreferences.setString(key, jsonString);
   }
