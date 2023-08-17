@@ -15,6 +15,7 @@ class _ChecklistState extends State<Checklist> {
   List<Task> tasks = [];
   Task? deletedTask;
   int? deletedTaskPosition;
+  String? errorText;
 
   @override
   void initState() {
@@ -36,10 +37,20 @@ class _ChecklistState extends State<Checklist> {
                   children: [
                     Expanded(
                       child: TextField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Add a task",
-                          hintText: "Study"
+                          hintText: "Study",
+                          errorText: errorText,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.green,
+                              width: 2
+                            )
+                          ),
+                          labelStyle: const TextStyle(
+                            color: Colors.green
+                          )
                         ),
                         controller: tasksInputController,
                       ),
@@ -50,6 +61,14 @@ class _ChecklistState extends State<Checklist> {
                     ElevatedButton(
                         onPressed: () {
                           String text = tasksInputController.text;
+
+                          if(text.isEmpty) {
+                            setState(() {
+                              errorText = "You cannot insert an empty task";
+                            });
+                            return;
+                          }
+
                           setState(() {
                             String text = tasksInputController.text;
                             setState(() {
@@ -58,6 +77,7 @@ class _ChecklistState extends State<Checklist> {
                                 dateTime: DateTime.now()
                               );
                               tasks.add(newTask);
+                              errorText = null;
                             });
                             tasksInputController.clear();
                             taskRepository.save(tasks);
